@@ -6,6 +6,7 @@ services:
             args:
                 WWWGROUP: "${WWWGROUP}"
         image: sail-8.3/app
+        container_name: Sail-menuKafe
         extra_hosts:
             - "host.docker.internal:host-gateway"
         ports:
@@ -25,6 +26,7 @@ services:
             - mysql
     mysql:
         image: "mysql/mysql-server:8.0"
+        container_name: mysql-menuKafe
         ports:
             - "${FORWARD_DB_PORT:-3306}:3306"
         environment:
@@ -49,11 +51,12 @@ services:
             timeout: 5s
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin-menuKafe
         environment:
             PMA_HOST: mysql
             MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
         ports:
-            - "8081:80"
+            - "80:80"
         depends_on:
             - mysql
         networks:
